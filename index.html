@@ -2,41 +2,95 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <title>Factory</title>
 </head>
+
 <body>
     <header>
-        <div class="chart">
-            <img src="img/chart.png" alt="img" name="img">
+        <div class="container" style="display: flex">
+
+            <div class="container-1">
+                <div class="">
+                    <div class="">
+                        <img src="img/shit.jpg" width="300" height="245" name="img">
+                    </div>
+                    <div class="">
+                        <img src="img/chart.png" width="850" name="img">
+                    </div>
+                    <div class="">
+                        <img src="img/hp-fon.png" width="320" height="220" name="img">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-2">
+                <h3 class="flex-itm">ОБЩИЕ ДАННЫЕ</h3>
+                <br><br>
+                <p class="flex-itm">заказов в производстве &emsp; &emsp; 7</p>
+                <p class="flex-itm">общая масса заказов &emsp; &emsp; 1000т</p>
+                <p class="flex-itm">план на текущий месяц &emsp; &emsp; 2</p>
+                <p class="flex-itm">прогноз на текущий месяц &nbsp; &nbsp; 1</p>
+                <p class="flex-itm">план на текущий месяц &nbsp; &nbsp; &nbsp; 100 т</p>
+                <p class="flex-itm">прогноз на текущий месяц &nbsp; 90 т</p>
+                <br><br>
+                <p class="flex-itm">факт за текущий месяц &emsp; 60/1</p>
+            </div>
+
+            <div class="container-3">
+                <p>ДНИ РОЖДЕНИЯ</p><br>
+                <p><font color="red"><b>21.09.21</b></font> - Иванов И.И. Начальник</p>
+                <p>25.09.21 - Смирнов С.П. Заместитель</p>
+                <p>28.08.21 - Сидоров А.С. Руководитель</p>
+                <p>30.09.21 - Петров П.П. Начальник</p>
+                <p>30.09.21 - Петров П.П. Начальник</p>
+            </div>
+
+        </div>
+    </header>
+
+    <button class="btn btn-danger" name="btn" id="btn"><h2>ПЕРЕЙТИ В РАБОЧУЮ ЗОНУ</h2></button>
+
+    <footer>
+        <div class="box-4">
+            <img src="img/news-fon.png" width="1000" height="320" name="img">
         </div>
 
-        <div class="block-1"><b>ОБЩИЕ ДАННЫЕ</b></div>
-        <ul id="pro">
-            <ol>Заказов в производстве 7</ol>
-            <ol>Общая масса заказов 1000т</ol>
-            <ol>Палн на текущий месяц 2</ol>
-            <ol>Прогноз на текущий месяц 2</ol>
-            <ol>Палн на текущий месяц 100т</ol>
-            <ol>Прогноз на текущий месяц 90т</ol>
-            <ol>Факт за текуший месяц 60/1</ol>
-        </ul>
+        <div class="container-4" style="display: flex">
+            <div class="block-news">
+                <h2> &emsp;&emsp;&emsp; НОВОСТИ</h2><br>
+                <p>22.09.2021</p>
+                <p><font color="red"><b>9:00 - Приостановлен заказ № 1/123 Производство РВС....</b></font></p>
+                <p>08:30 - ОТК выставило замечание к заказу №1/123 ......</p>
+                <p>08:00 - Планируется приезд инспекционного контроля......</p><br>
+                <p>21.09.2021</p>
+                <p>16:30 - Осуществена отгрузка заказа № 1/123 ........</p>
+                <p><font color="red"><b>16:00 - Приостановлен заказ ......</b></font></p>
+                <p>15:30 - Осуществлена отгрузка заказа № 1/123......</p>
+                <p>15:00 - Запущен заказ в производство № 1/123......</p>
+            </div>
+        </div>
 
-        <div class="block-2"><b>ДНИ РОЖДЕНИЯ</b></div>
-        <ul id="happy">
-            <ol class="birthday"><b>21.09.21 Иванов И.И. Начальник</b></ol>
-            <ol>25.09.21 Смирнов С.П. Заместитель</ol>
-            <ol>28.08.21 Сидоров А.С. Руководитель</ol>
-            <ol>30.09.21 Петров П.П. Начальник</ol>
-            <ol>30.09.21 Петров П.П. Начальник</ol>
-        </ul>
-    </header>
-    <a href="about.html"><button class="btn btn-danger" id="work"><b>ПЕРЕЙТИ В РАБОЧУЮ ЗОНУ</b></button></a>
+            <div id="buttonsleft">
+                <button class="btn1" type="button" name="meet"><h3>НАЗНАЧИТЬ СОВЕЩАНИЕ</h3></button><br><br>
+                <button class="btn2" type="button" name="task"><h3>ПОСТАВИТЬ<br>ЗАДАЧУ</h3></button><br><br>
+                <button class="btn3" type="button" name="contracts"><h3>ДОГОВОРЫ НА СОГЛАСОВАНИИ</h3></button><br><br>
+                <button class="btn4" type="button" name="analytics"><h3>АНАЛИТИКА</h3></button>
+            </div>
 
+            <div id="buttonsright">
+                <button class="btn5" type="button" name="osn"><h3>ОСН</h3></button><br><br>
+                <button class="btn6" type="button" name="osz"><h3>ОСЗ</h3></button><br><br>
+                <button class="btn7" type="button" name="pto"><h3>ПТО</h3></button><br><br>
+                <button class="btn8" type="button" name="depart"><h3>Ком Отдел</h3></button>
+            </div>
 
-
-    <script src="js/index.js"></script>
+    </footer>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script async src="js/index.js"></script>
 </body>
+
 </html>
