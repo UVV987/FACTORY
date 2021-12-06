@@ -1,0 +1,144 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;500;700;900&display=swap'); */
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+body {
+    height: 100%;
+    background: url('../img/fon.png') no-repeat center center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-blend-mode: multiply;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    position: relative;
+}
+
+img {
+    display: flex;
+    max-width: 100%;
+    height: auto;
+    width: auto\9;
+}
+
+.container-1 {
+    display: flex;
+    justify-content: space-around;
+    margin: 1% 1%;
+}
+
+.container-2 {
+    display: flex;
+    align-items: flex-start;
+    font-size: auto;
+    color: white;
+
+}
+
+.container-3 {
+    display: flex;
+    font-size: auto;
+    color: white;
+    justify-content: flex-end;
+
+}
+
+.block-news {color: white;}
+
+
+.container {
+    width: 70%;
+    margin: auto;
+}
+  
+.data, .container {
+    background: url('../img/news-fon.png');
+    background-size: 50% 30%;
+    padding: 10px 10px 30px 10px;
+    color: white;
+}
+
+.data div {
+    margin-top: 20px;
+}
+
+.data h4,
+  .data .num {
+    font-family: monospace;
+}
+
+.data div p {
+    font-family: sans-serif;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+
+
+
+
+
+#button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#btn {
+    margin-left: 250px;
+    margin-top: -100px;
+    display: flex;
+    padding: 7px 80px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1 em;
+    font-weight: 200;
+    color: white;
+    transition: background 600ms ease;
+    background: url('../img/wp.JPG');
+    position: relative;
+}
+
+.btn-danger:hover {
+    background: url('../img/wp.jfif')
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn1, .btn2, .btn3, .btn4, .btn5, .btn6, .btn7, .btn8 {
+  border-radius: 10px;
+  border: 0;
+  font-size: 14px;
+  transition: background 600ms ease;
+  background: url(../img/btn.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  color: white;
+  height: 80px;
+  width: 200px;
+  position: relative;
+}
+
+
+.btn1:hover, .btn2:hover, .btn3:hover, .btn4:hover, .btn5:hover, .btn6:hover, .btn7:hover, .btn8:hover {
+    background: #2c2a2a;
+}
+
