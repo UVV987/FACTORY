@@ -1,0 +1,91 @@
+/*Обнуление*/
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  background: url('/pictures/img/fon.png') no-repeat top center / 100% 100%;
+  background-size: cover;
+  color: #fff;
+}
+
+.wrapper {
+  display: flexbox;
+  align-items: center;
+  text-align: center;
+  margin: 20px 20px 0 20px;
+  color: white;
+}
+
+.box, .box-1 {
+  text-align: center;
+  /* width: 50%; */
+}
+
+input {
+  width: 350px;
+  margin: 10px 10px 10px 10px;
+  padding: 7px;
+  border: 2px solid rgb(4, 49, 100);
+}
+
+#work {
+  width: 50%;
+  margin: 20px;
+  text-align: center;
+}
+
+#div_bar {width: 70px; text-align: center;}
+
+table td {
+  padding: 3px;
+  border-bottom: 1px solid black
+}
+
+.name-table {text-align: left;}
+
+.checkbox {
+  width: 45px;
+  height: 45px;
+  transform: translate(0, 38%);
+}
+
+table a {text-decoration: none; color: white;}
+
+table th {
+  background-color: rgb(2, 36, 75);
+  text-align: center;
+  padding: 10px;
+}
+
+button {
+  background-color: rgb(5, 58, 117);
+  color: white;
+  font-weight: bold;
+  margin: 10px;
+  padding: 10px 40px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.tab-2 {margin: 20px;}
+
+@media (min-width: 550px) {
+    .body{height:100%;}
+  }
+  
+  @media (min-width: 900px) {
+    .body {height: 100%;}
+  }
+  
+  @media (max-widht: 1950px) and (min-width: 900px) {
+    .wrapper {height: 100%; width: 100%;}
+    .box {width: 100%;}
+    .box-1 {width: 100%;}
+  }

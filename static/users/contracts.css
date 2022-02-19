@@ -1,0 +1,71 @@
+/*Обнуление*/
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background: url('/pictures/img/fon.png') no-repeat top center / 100% 100%;
+    background-size: cover;
+}
+
+table, h6 {padding: 10px;}
+
+.wrapper {width: 100%; margin: 20px;}
+
+.wrap-1 {
+    display: flex;
+    padding: 10px;
+}
+
+.item-1 {
+    margin: 10px;
+    padding: 10px;
+    width: 350px;
+    height: 200px;
+    color: white;
+    background: url('/pictures/img/news-fon.png')no-repeat top center / 100% 100%;
+}
+
+.item-2 {
+    margin: 10px;
+    width: 900px;
+    height: 350px;
+    background: url('/pictures/img/chart.png')no-repeat top center / 100% 100%;
+    background-size: contain;
+}
+
+.wrap-2 {
+    padding: 0 10px;
+}
+
+.tab-2 {
+    width: 95%;
+    color: white;
+    background-color: rgb(4, 49, 100);
+    border-collapse: collapse;
+}
+
+.tab-2 td {border-bottom: 1px solid black}
+
+meter {
+    width: 60px;
+    height: 30px;
+}
+
+table th {
+    background-color: rgb(2, 36, 75);
+    text-align: center;
+}
+
+.wrap-2 {
+    text-align: center;
+}
+
+@media (min-width: 1950px) {
+    .body {width: 100%;}
+    .wapper {width: 100vh;}
+  }

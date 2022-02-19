@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <title>Factory</title>
+</head>
+<body>
+
+<div class="wrap-1 container">
+    <section class="summary">
+      <h4 class="ms-md-4">Общие данные</h4>
+      <table class="summary__table ms-md-2">
+        <tr>
+          <td class="summary__termin">заказов в производстве</td>
+          <td class="summary__value">7</td>
+        </tr>
+        <tr>
+          <td class="summary__termin">общая масса заказов</td>
+          <td class="summary__value">1000т</td>
+        </tr>
+        <tr>
+          <td class="summary__termin">план на текущий месяц</td>
+          <td class="summary__value">2</td>
+        </tr>
+        <tr>
+          <td class="summary__termin">прогноз на текущий месяц</td>
+          <td class="summary__value">1</td>
+        </tr>
+        <tr>
+          <td class="summary__termin">план на текущий месяц</td>
+          <td class="summary__value">100 т</td>
+        </tr>
+        <tr>
+          <td class="summary__termin">прогноз на текущий месяц</td>
+          <td class="summary__value">90 т</td>
+        </tr>
+        <tr>
+          <td class="summary__termin">факт за текущий месяц</td>
+          <td class="summary__value">60/1</td>
+        </tr>
+      </table>
+    </section>
+  
+    <section class="production">
+      <!-- <центральный график> -->
+    </section>
+  
+    <section class="birthdays">
+      <h4 class="ms-md-4">Дни рождения</h4>
+      <dl class="birthdays__list ms-md-2">
+        <dt class="birthdays__date birthdays__date--nearest"><font color="red">21.09.21</font></dt>
+        <dd class="birthdays__person">Иванов И.И. <span>Начальник</span></dd>
+        <dt class="birthdays__date">25.09.21</dt>
+        <dd class="birthdays__person">Смирнов С.П. <span>Заместитель</span></dd>
+        <dt class="birthdays__date">28.08.21</dt>
+        <dd class="birthdays__person">Сидоров А.С. <span>Руководитель</span></dd>
+        <dt class="birthdays__date">30.09.21</dt>
+        <dd class="birthdays__person">Петров П.П. <span>Начальник</span></dd>
+        <dt class="birthdays__date">30.09.21</dt>
+        <dd class="birthdays__person">Петров П.П. <span>Начальник</span></dd>
+      </dl>
+    </section>
+  </div>
+  
+  <a href="/about" class="go-to-work">Перейти в рабочую зону</a>
+  
+  <div class="wrap-2 container">
+  
+    <ul class="tasks">
+      <li class="tasks__item"><a class="tasks__link" href="/meeting">Назначить совещание</a></li>
+      <li class="tasks__item"><a class="tasks__link" href="#zatemnenie">Поставить задачу</a></li>
+      <li class="tasks__item"><a class="tasks__link" href="/contracts">Договоры на согласовании</a></li>
+      <li class="tasks__item"><a class="tasks__link" href="/analytics.html">Аналитика</a></li>
+    </ul>
+  
+    <section class="news">
+      <h2>Новости</h2>
+      <ul class="news__list">
+        <li class="news__item news__item--attention">
+          <time datetime="2021-09-22 09:00">22.09.2021</time>
+          <div class="news__text"><font color="red"><b>9:00 - Приостановлен заказ № 1/123 Производство РВС.....</b></font></div>
+        </li>
+        <li class="news__item">
+          <time datetime="2021-09-22 08:30">22.09.2021</time>
+          <div class="news__text">08:30 - ОТК выставило замечание к заказу №1/123 .......</div>
+        </li>
+        <li class="news__item news__item--attention">
+          <time datetime="2021-09-22 08:00">22.09.2021</time>
+          <div class="news__text">08:00 - Планируется приезд инспекционного контроля.......</div>
+        </li><br>
+        <li class="news__item">
+          <time datetime="2021-09-21 16:30">21.09.2021</time>
+          <div class="news__text">16:30 - Осущественна отгрузка заказа № 1/123 .........</div>
+        </li>
+        <li class="news__item">
+          <time datetime="2021-09-21 16:00">21.09.2021</time>
+          <div class="news__text"><font color="red"><b>16:00 - Приостановлен заказ .......</b></font></div>
+        </li>
+        <li class="news__item">
+          <time datetime="2021-09-21 15:30">21.09.2021</time>
+          <div class="news__text">15:30 - Осуществлена отгрузка заказа № 1/123.......</div>
+        </li>
+      </ul>
+    </section>
+  
+    <ul class="some-nav">
+      <li class="some-nav__item"><a class="some-nav__link" href="/osn.html">ОСН</a></li>
+      <li class="some-nav__item"><a class="some-nav__link" href="/osz.html">ОСЗ</a></li>
+      <li class="some-nav__item"><a class="some-nav__link" href="/pto.html">ПТО</a></li>
+      <li class="some-nav__item"><a class="some-nav__link" href="/depart.html">Ком отдел</a></li>
+    </ul>
+  
+  </div>
+
+
+  <style>
+    #zatemnenie:target {
+    display: flex;
+    }
+
+    #zatemnenie {
+    background: rgba(102, 102, 102, 0.68);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 9999999999;
+    }
+    
+    window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 750px;
+    height: 800px;
+    border: 1px solid #cecece;
+    padding: 50px;
+    transform: translate(-50%,-50%);
+    background-color: rgb(0,35,105);
+    align-items: center;
+    color: #fafafa;
+    }
+    
+    div#main_text a.close_window {
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    border: none;
+    }
+
+    .win {float: right;}
+
+    button {
+      width: 140px;
+      height: 80px;
+      border-radius: 10px 0px;
+      background-color: rgb(0, 11, 50);
+      color: #fafafa;
+      margin: 5px;
+      /* font-weight: bold; */
+    }
+
+    input {
+      width: 650px;
+      height: 300px;
+      margin-top: 20px;
+    }
+
+</style>
+
+    <a href="#zatemnenie"></a>
+    <div id="zatemnenie">
+       <window>
+            <a class="win" href="#close_window" class="close_window">x</a>
+            <p><b>ВЫБЕРИТЕ ИСПОЛНИТЕЛЯ</b></p>
+            <button>Первый ЗГД</button><button>Ком.дир</button>
+            <button>ЗГД развитие</button><button>ЗГД ОТК</button><br>
+            <button>ПРОИЗВОДСТВО</button><button>ОТК</button><button>ОСН</button><br>
+            <button>ОСЗ</button><button>ПТО</button><button>Ком.отдел</button><br>
+            <form role="form" action="/requestFine" autocomplete="off" method="POST">
+              <input type="text" name="nameReq"><br><br>
+              <a type="submit" class="btn btn-secondary" width='160' height='50' >Отправить</a>
+            </form>
+       </window>
+    </div>
+
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+</body>
+
+</html>
