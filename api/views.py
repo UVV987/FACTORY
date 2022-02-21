@@ -217,19 +217,19 @@ def end(request, department):
         dt = datetime.datetime.now()
 
         if department == 'km':
-            model.end1 += f'{(dt-model.end_start1.replace(tzinfo=None)).total_seconds()/(model.end_start1.replace(tzinfo=None)-model.start_data1.replace(tzinfo=None)).total_seconds()}'
+            model.end1 += f'{(-(dt-model.end_start1.replace(tzinfo=None)).total_seconds()/(model.end_start1.replace(tzinfo=None)-model.start_data1.replace(tzinfo=None)).total_seconds())/100}'
         elif department == 'kmd':
-            model.end2 += f'{(dt-model.end_start2.replace(tzinfo=None)).total_seconds()/(model.end_start2.replace(tzinfo=None)-model.start_data2.replace(tzinfo=None)).total_seconds()}'
+            model.end2 += f'{(-(dt-model.end_start2.replace(tzinfo=None)).total_seconds()/(model.end_start2.replace(tzinfo=None)-model.start_data2.replace(tzinfo=None)).total_seconds())/100}'
         elif department == 'tmc':
-            model.end3 += f'{(dt-model.end_start3.replace(tzinfo=None)).total_seconds()/(model.end_start3.replace(tzinfo=None)-model.start_data3.replace(tzinfo=None)).total_seconds()}'
+            model.end3 += f'{(-(dt-model.end_start3.replace(tzinfo=None)).total_seconds()/(model.end_start3.replace(tzinfo=None)-model.start_data3.replace(tzinfo=None)).total_seconds())/100}'
         elif department == 'zagatovka':
-            model.end4 += f'{(dt-model.end_start4.replace(tzinfo=None)).total_seconds()/(model.end_start4.replace(tzinfo=None)-model.start_data4.replace(tzinfo=None)).total_seconds()}'
+            model.end4 += f'{(-(dt-model.end_start4.replace(tzinfo=None)).total_seconds()/(model.end_start4.replace(tzinfo=None)-model.start_data4.replace(tzinfo=None)).total_seconds())/100}'
         elif department == 'sborka':
-            model.end5 += f'{(dt-model.end_start5.replace(tzinfo=None)).total_seconds()/(model.end_start5.replace(tzinfo=None)-model.start_data5.replace(tzinfo=None)).total_seconds()}'
+            model.end5 += f'{(-(dt-model.end_start5.replace(tzinfo=None)).total_seconds()/(model.end_start5.replace(tzinfo=None)-model.start_data5.replace(tzinfo=None)).total_seconds())/100}'
         elif department == 'svarka':
-            model.end6 += f'{(dt-model.end_start6.replace(tzinfo=None)).total_seconds()/(model.end_start6.replace(tzinfo=None)-model.start_data6.replace(tzinfo=None)).total_seconds()}'
+            model.end6 += f'{(-(dt-model.end_start6.replace(tzinfo=None)).total_seconds()/(model.end_start6.replace(tzinfo=None)-model.start_data6.replace(tzinfo=None)).total_seconds())/100}'
         elif department == 'upakovka':
-            model.end7 += f'{(dt-model.end_start7.replace(tzinfo=None)).total_seconds()/(model.end_start7.replace(tzinfo=None)-model.start_data7.replace(tzinfo=None)).total_seconds()}'
+            model.end7 += f'{(-(dt-model.end_start7.replace(tzinfo=None)).total_seconds()/(model.end_start7.replace(tzinfo=None)-model.start_data7.replace(tzinfo=None)).total_seconds())/100}'
 
         model.save()
 
