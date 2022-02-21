@@ -11,4 +11,5 @@ urlpatterns = [
     path('api/stop_otk/<str:department>', views.stop_otk, name='stop_otk'),
     path('api/back/<str:department>', views.back, name='back'),
     path('api/end/<str:department>', views.end, name='end'),
+    path('api/qr/<int:id>/<str:model>', views.give_qr, name='give_qr'),
 ]

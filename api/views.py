@@ -235,5 +235,13 @@ def end(request, department):
 
     return HttpResponse('')
 
+def give_qr(request, id, model):
+    if model == 'factory':
+        department = 'km'
+    else:
+        department = ''
+
+    return render(request, 'qr.html', {'svg': ''.join(open(str(get_model(department, id).qr), 'r').readlines()).replace('svg', 'svg style="transform: scale(3);"')})
+
 def give_csrf(request):
     return render(request, 'csrf.html')

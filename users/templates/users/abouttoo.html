@@ -60,34 +60,12 @@
                         <td>{{ i.start_data }}</td>
                         <td>{{ i.end_start }}</td>
                         <td>{{ i.old }}</td>
-                        <td class="table_td">
-                            {% if i.met1 != '9999' or i.fill1 %}
-                                <div style='width: 50px; background-color: {{ i.color1_ }}; height: 25px; color: black; font-weight: bold;'>
-                                    {{ i.meter.0 }}%
-                                    <div style='width: 100%; height: 25px; margin-top: -24px;'>
-                                    {% for j in i.color1 %}
-                                        <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
-                                    {% endfor %}
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </td>
-                        <td class="table_td">
-                            {% if i.met2 != '9999' or i.fill2 %}
-                                <div style='width: 50px; background-color: {{ i.color2_ }}; height: 25px; color: black; font-weight: bold;'>
-                                    {{ i.meter.1 }}%
-                                    <div style='width: 100%; height: 25px; margin-top: -24px;'>
-                                    {% for j in i.color2 %}
-                                        <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
-                                    {% endfor %}
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </td>
+                        <td class="table_td"></td>
+                        <td class="table_td"></td>
                         <td class="table_td">
                             {% if i.met3 != '9999' or i.fill3 %}
                                 <div style='width: 50px; background-color: {{ i.color3_ }}; height: 25px; color: black; font-weight: bold;'>
-                                    {{ i.meter.2 }}%
+                                    {{ i.meter.0 }}%
                                     <div style='width: 100%; height: 25px; margin-top: -24px;'>
                                     {% for j in i.color3 %}
                                         <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
@@ -99,7 +77,7 @@
                         <td class="table_td">
                             {% if i.met4 != '9999' or i.fill4 %}
                                 <div style='width: 50px; background-color: {{ i.color4_ }}; height: 25px; color: black; font-weight: bold;'>
-                                    {{ i.meter.3 }}%
+                                    {{ i.meter.1 }}%
                                     <div style='width: 100%; height: 25px; margin-top: -24px;'>
                                     {% for j in i.color4 %}
                                         <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
@@ -111,7 +89,7 @@
                         <td class="table_td">
                             {% if i.met5 != '9999' or i.fill5 %}
                                 <div style='width: 50px; background-color: {{ i.color5_ }}; height: 25px; color: black; font-weight: bold;'>
-                                    {{ i.meter.4 }}%
+                                    {{ i.meter.2 }}%
                                     <div style='width: 100%; height: 25px; margin-top: -24px;'>
                                     {% for j in i.color5 %}
                                         <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
@@ -123,7 +101,7 @@
                         <td class="table_td">
                             {% if i.met6 != '9999' or i.fill6 %}
                                 <div style='width: 50px; background-color: {{ i.color6_ }}; height: 25px; color: black; font-weight: bold;'>
-                                    {{ i.meter.5 }}%
+                                    {{ i.meter.3 }}%
                                     <div style='width: 100%; height: 25px; margin-top: -24px;'>
                                     {% for j in i.color6 %}
                                         <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
@@ -135,7 +113,7 @@
                         <td class="table_td">
                             {% if i.met7 != '9999' or i.fill7 %}
                                 <div style='width: 50px; background-color: {{ i.color7_ }}; height: 25px; color: black; font-weight: bold;'>
-                                    {{ i.meter.6 }}%
+                                    {{ i.meter.4 }}%
                                     <div style='width: 100%; height: 25px; margin-top: -24px;'>
                                     {% for j in i.color7 %}
                                         <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
