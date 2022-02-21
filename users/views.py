@@ -43,7 +43,6 @@ def finish(end_start, end_start1):
     else:
         return end_start1
 
-# ЗАЛИВКА ЦВЕТАМИ
 def get_met(factory):
     out_mets = ['9999', '9999', '9999', '9999', '9999']
     mets = []
@@ -92,8 +91,10 @@ def calculated_bar(dt, start, end, end_, fill=False):
 
         time_from_start = (dt-start).total_seconds()/60.0
         time_all = (end-start).total_seconds()/60.0
+
         if end_ != '':
-            time_all = time_all*float(end_)-(start-datetime.datetime(1, 1, 1, 0, 0, 0)).total_seconds()/60.0
+            time_all = time_all*float(end_)
+
         time_from_start_otk = time_from_start-time_all
 
         time_from_start_otk_part = time_from_start_otk/20*100
@@ -150,7 +151,7 @@ def give_color(history, start_data, end_data, dt, otk, end):
     time_from_start = (dt-start_data).total_seconds()/60.0 
     time_all = (end_data-start_data).total_seconds()/60.0
     if end != '':
-        time_all = time_all*float(end)-(start_data-datetime.datetime(1, 1, 1, 0, 0, 0)).total_seconds()/60.0
+        time_all = time_all*float(end)
     time_from_start_otk = time_from_start-time_all
     time_all_otk = 20
 
@@ -290,9 +291,12 @@ def give_color_2(factory, dt):
 
     return out_colors[0], out_colors[1], out_colors[2], out_colors[3], out_colors[4]
 
-def give_bg_color(start_data, end_data, dt):
+def give_bg_color(start_data, end_data, dt, end):
     time_from_start = (dt-start_data).total_seconds()/60.0
     time_all = (end_data-start_data).total_seconds()/60.0
+
+    if end != '':
+        time_all = time_all*float(end)
 
     if time_from_start > time_all:
         return 'blue'
@@ -307,11 +311,11 @@ def give_bg_color_2(factory, dt):
     if len(detal) != 0:
         for i in detal:
             buff = []
-            buff.append(give_bg_color(i.start_data3.replace(tzinfo=None), i.end_start3.replace(tzinfo=None), dt))
-            buff.append(give_bg_color(i.start_data4.replace(tzinfo=None), i.end_start4.replace(tzinfo=None), dt))
-            buff.append(give_bg_color(i.start_data5.replace(tzinfo=None), i.end_start5.replace(tzinfo=None), dt))
-            buff.append(give_bg_color(i.start_data6.replace(tzinfo=None), i.end_start6.replace(tzinfo=None), dt))
-            buff.append(give_bg_color(i.start_data7.replace(tzinfo=None), i.end_start7.replace(tzinfo=None), dt))
+            buff.append(give_bg_color(i.start_data3.replace(tzinfo=None), i.end_start3.replace(tzinfo=None), dt, i.end3))
+            buff.append(give_bg_color(i.start_data4.replace(tzinfo=None), i.end_start4.replace(tzinfo=None), dt, i.end4))
+            buff.append(give_bg_color(i.start_data5.replace(tzinfo=None), i.end_start5.replace(tzinfo=None), dt, i.end5))
+            buff.append(give_bg_color(i.start_data6.replace(tzinfo=None), i.end_start6.replace(tzinfo=None), dt, i.end6))
+            buff.append(give_bg_color(i.start_data7.replace(tzinfo=None), i.end_start7.replace(tzinfo=None), dt, i.end7))
             colors.append(buff)
 
         for i in range(5):
@@ -405,8 +409,8 @@ def operator(request):
         object['color2'] = [['green', 100]] if i.fill2 else give_color(i.history2, i.start_data2, i.end_start2, dt, i.otk2, i.end2)
         object['color3'], object['color4'], object['color5'], object['color6'], object['color7'] = give_color_2(i, dt)
 
-        object['color1_'] = give_bg_color(i.start_data1, i.end_start1, dt)
-        object['color2_'] = give_bg_color(i.start_data2, i.end_start2, dt)
+        object['color1_'] = give_bg_color(i.start_data1, i.end_start1, dt, i.end1)
+        object['color2_'] = give_bg_color(i.start_data2, i.end_start2, dt, i.end2)
         object['color3_'], object['color4_'], object['color5_'], object['color6_'], object['color7_'] = give_bg_color_2(i, dt)
 
         object['meter'] = []
@@ -542,11 +546,11 @@ def detal(request, id):
         object['color5'] = [['green', 100]] if i.fill5 else give_color(i.history5, i.start_data5, i.end_start5, dt, i.otk5, i.end5)
         object['color6'] = [['green', 100]] if i.fill6 else give_color(i.history6, i.start_data6, i.end_start6, dt, i.otk6, i.end6)
         object['color7'] = [['green', 100]] if i.fill7 else give_color(i.history7, i.start_data7, i.end_start7, dt, i.otk7, i.end7)
-        object['color3_'] = give_bg_color(i.start_data3, i.end_start3, dt)
-        object['color4_'] = give_bg_color(i.start_data4, i.end_start4, dt)
-        object['color5_'] = give_bg_color(i.start_data5, i.end_start5, dt)
-        object['color6_'] = give_bg_color(i.start_data6, i.end_start6, dt)
-        object['color7_'] = give_bg_color(i.start_data7, i.end_start7, dt)
+        object['color3_'] = give_bg_color(i.start_data3, i.end_start3, dt, i.end3)
+        object['color4_'] = give_bg_color(i.start_data4, i.end_start4, dt, i.end4)
+        object['color5_'] = give_bg_color(i.start_data5, i.end_start5, dt, i.end5)
+        object['color6_'] = give_bg_color(i.start_data6, i.end_start6, dt, i.end6)
+        object['color7_'] = give_bg_color(i.start_data7, i.end_start7, dt, i.end7)
 
         object['meter'] = []
         object['meter'].append(calculated_bar(dt, i.start_data3, i.end_start3, i.end3, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
@@ -612,8 +616,8 @@ def about(request):
         object['color2'] = [['green', 100]] if i.fill2 else give_color(i.history2, i.start_data2, i.end_start2, dt, i.otk2, i.end2)
         object['color3'], object['color4'], object['color5'], object['color6'], object['color7'] = give_color_2(i, dt)
 
-        object['color1_'] = give_bg_color(i.start_data1, i.end_start1, dt)
-        object['color2_'] = give_bg_color(i.start_data2, i.end_start2, dt)
+        object['color1_'] = give_bg_color(i.start_data1, i.end_start1, dt, i.end1)
+        object['color2_'] = give_bg_color(i.start_data2, i.end_start2, dt, i.end2)
         object['color3_'], object['color4_'], object['color5_'], object['color6_'], object['color7_'] = give_bg_color_2(i, dt)
 
         object['meter'] = []
@@ -707,11 +711,11 @@ def abouttoo(request, id):
         object['color5'] = [['green', 100]] if i.fill5 else give_color(i.history5, i.start_data5, i.end_start5, dt, i.otk5, i.end5)
         object['color6'] = [['green', 100]] if i.fill6 else give_color(i.history6, i.start_data6, i.end_start6, dt, i.otk6, i.end6)
         object['color7'] = [['green', 100]] if i.fill7 else give_color(i.history7, i.start_data7, i.end_start7, dt, i.otk7, i.end7)
-        object['color3_'] = give_bg_color(i.start_data3, i.end_start3, dt)
-        object['color4_'] = give_bg_color(i.start_data4, i.end_start4, dt)
-        object['color5_'] = give_bg_color(i.start_data5, i.end_start5, dt)
-        object['color6_'] = give_bg_color(i.start_data6, i.end_start6, dt)
-        object['color7_'] = give_bg_color(i.start_data7, i.end_start7, dt)
+        object['color3_'] = give_bg_color(i.start_data3, i.end_start3, dt, i.end3)
+        object['color4_'] = give_bg_color(i.start_data4, i.end_start4, dt, i.end4)
+        object['color5_'] = give_bg_color(i.start_data5, i.end_start5, dt, i.end5)
+        object['color6_'] = give_bg_color(i.start_data6, i.end_start6, dt, i.end6)
+        object['color7_'] = give_bg_color(i.start_data7, i.end_start7, dt, i.end7)
 
         object['meter'] = []
         object['meter'].append(calculated_bar(dt, i.start_data3, i.end_start3, i.end3, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
