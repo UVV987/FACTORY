@@ -21,6 +21,7 @@ class Factory(models.Model):
     otk1 = models.TextField(verbose_name='ОТК', default='')
     sent1 = models.BooleanField(verbose_name='отправлено', default=False)
     end1 = models.TextField(verbose_name='закончен', default='')
+    end1_otk = models.BooleanField(verbose_name='ОТК закончен', default=False)
 
     start_data2 = models.DateTimeField(verbose_name='дата начало', default=timezone.now)
     end_start2 = models.DateTimeField(verbose_name='дата окончания', default=timezone.now)
@@ -29,6 +30,7 @@ class Factory(models.Model):
     otk2 = models.TextField(verbose_name='ОТК', default='')
     sent2 = models.BooleanField(verbose_name='отправлено', default=False)
     end2 = models.TextField(verbose_name='закончен', default='')
+    end2_otk = models.BooleanField(verbose_name='ОТК закончен', default=False)
 
     def __str__(self) -> str:
         return super().__str__()
@@ -71,6 +73,7 @@ class Detal(models.Model):
     otk3 = models.TextField(verbose_name='ОТК', default='')
     sent3 = models.BooleanField(verbose_name='отправлено', default=False)
     end3 = models.TextField(verbose_name='закончен', default='')
+    end3_otk = models.BooleanField(verbose_name='ОТК закончен', default=False)
 
     start_data4 = models.DateTimeField(verbose_name='дата начало', default=timezone.now)
     end_start4 = models.DateTimeField(verbose_name='дата окончания', default=timezone.now)
@@ -79,6 +82,7 @@ class Detal(models.Model):
     otk4 = models.TextField(verbose_name='ОТК', default='')
     sent4 = models.BooleanField(verbose_name='отправлено', default=False)
     end4 = models.TextField(verbose_name='закончен', default='')
+    end4_otk = models.BooleanField(verbose_name='ОТК закончен', default=False)
 
     start_data5 = models.DateTimeField(verbose_name='дата начало', default=timezone.now)
     end_start5 = models.DateTimeField(verbose_name='дата окончания', default=timezone.now)
@@ -87,6 +91,7 @@ class Detal(models.Model):
     otk5 = models.TextField(verbose_name='ОТК', default='')
     sent5 = models.BooleanField(verbose_name='отправлено', default=False)
     end5 = models.TextField(verbose_name='закончен', default='')
+    end5_otk = models.BooleanField(verbose_name='ОТК закончен', default=False)
 
     start_data6 = models.DateTimeField(verbose_name='дата начало', default=timezone.now)
     end_start6 = models.DateTimeField(verbose_name='дата окончания', default=timezone.now)
@@ -95,6 +100,7 @@ class Detal(models.Model):
     otk6 = models.TextField(verbose_name='ОТК', default='')
     sent6 = models.BooleanField(verbose_name='отправлено', default=False)
     end6 = models.TextField(verbose_name='закончен', default='')
+    end6_otk = models.BooleanField(verbose_name='ОТК закончен', default=False)
 
     start_data7 = models.DateTimeField(verbose_name='дата начало', default=timezone.now)
     end_start7 = models.DateTimeField(verbose_name='дата окончания', default=timezone.now)
@@ -103,6 +109,7 @@ class Detal(models.Model):
     otk7 = models.TextField(verbose_name='ОТК', default='')
     sent7 = models.BooleanField(verbose_name='отправлено', default=False)
     end7 = models.TextField(verbose_name='закончен', default='')
+    end7_otk = models.BooleanField(verbose_name='ОТК закончен', default=False)
 
     def __str__(self) -> str:
         return super().__str__()

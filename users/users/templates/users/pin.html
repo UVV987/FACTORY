@@ -1,0 +1,78 @@
+{% extends 'users/about.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+
+    <!-- <div class="container-2">
+        <ul class="tasks">
+            <li class="tasks__item"><a class="tasks__link" href="/meeting">Назначить совещание</a></li>
+            <li class="tasks__item"><a class="tasks__link" href="#zatemnenie">Поставить задачу</a></li>
+            <li class="tasks__item"><a class="tasks__link" href="/contracts">Договоры на согласовании</a></li>
+            <li class="tasks__item"><a class="tasks__link" href="/analytics.html">Аналитика</a></li>
+          </ul> -->
+          {% block content %}
+          <section class="orders">
+            <table class="tab-1" style="background-color: rgb(2, 36, 75);">
+                <tr>
+                    <td class="td p-1"><b>План производства</b></td>
+                    <td class="p-1"><b>{{ top1 }} д</b></td>
+                    <td><meter class="meter" value="{{ top }}" max="150"></meter></td> <!-- Тут в value передал -->
+                </tr>
+                <tr>
+                    <td class="td p-1"><b>Прогноз производста</b></td>
+                    <td class="p-1"><b>{{ top2 }} д</b></td>
+                    <td><meter class="meter" value="150" max="150"></meter></td>
+                </tr>
+                <tr>
+                    <td class="td p-1"><b>Факт производства</b></td>
+                    <td><b>{{ top2 }} д</b></td>
+                    <td><meter class="meter" value="{{ top3 }}" max="100"></meter></td>
+                </tr>
+            </table>
+            <br>
+            <table style="background-color: rgb(4, 49, 100);" class="tab-2">
+                <tr>
+                    <!-- <th>№<br>чертёж</th> -->
+                    <th>Участок/отдел</th>
+                    <th>масса</th>
+                    <th>дата <br>запуска</th>
+                    <th>план<br> отгрузки</th>
+                    <th>прогноз<br> отгрузки</th>
+                    <th>КМ</th>
+                    <th>КМД</th>
+                    <th>ТМЦ</th>
+                    <th>заготовка</th>
+                    <th>сборка</th>
+                    <th>сварка</th>
+                    <th>упаковка</th>
+                </tr>
+                {% for i in objects %}
+                    <tr>
+                        <!-- <td>{{ i.order_number }}</td> -->
+                        <td class="td-1 p-2">{{ i.name }}</td>
+                        <td>{{ i.weight }}</td>
+                        <td>{{ i.start_data }}</td>
+                        <td>{{ i.end_start }}</td>
+                        <td>{{ i.end_start }}</td>
+                        <td><meter value="{{ i.meter.0 }}" max="100"></meter></td>
+                        <td><meter value="{{ i.meter.1 }}" max="100"></meter></td>
+                        <td><meter value="{{ i.meter.2 }}" max="100"></meter></td>
+                        <td><meter value="{{ i.meter.3 }}" max="100"></meter></td>
+                        <td><meter value="{{ i.meter.4 }}" max="100"></meter></td>
+                        <td><meter value="{{ i.meter.5 }}" max="100"></meter></td>
+                        <td><meter value="{{ i.meter.6 }}" max="100"></meter></td>
+                    </tr>
+                {% endfor %}
+            </table>
+          </section>
+          {% endblock %}
+          <!-- <ul class="some-nav">
+            <li class="some-nav__item"><a class="some-nav__link" href="/osn.html">ОСН</a></li>
+            <li class="some-nav__item"><a class="some-nav__link" href="/osz.html">ОСЗ</a></li>
+            <li class="some-nav__item"><a class="some-nav__link" href="/pto.html">ПТО</a></li>
+            <li class="some-nav__item"><a class="some-nav__link" href="/depart.html">Ком отдел</a></li>
+          </ul>
+    </div> -->
+

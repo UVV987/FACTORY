@@ -1,0 +1,137 @@
+{% extends 'users/about.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+
+    <!-- <div class="container-2">
+        <ul class="tasks">
+            <li class="tasks__item"><a class="tasks__link" href="/meeting">Назначить совещание</a></li>
+            <li class="tasks__item"><a class="tasks__link" href="#zatemnenie">Поставить задачу</a></li>
+            <li class="tasks__item"><a class="tasks__link" href="/contracts">Договоры на согласовании</a></li>
+            <li class="tasks__item"><a class="tasks__link" href="/analytics.html">Аналитика</a></li>
+          </ul> -->
+          {% block content %}
+          <section class="orders">
+            <table class="tab-1" style="background-color: rgb(2, 36, 75);">
+                <tr>
+                    <td class="td p-1"><b>План производства</b></td>
+                    <td class="p-1"><b>{{ top1 }} д</b></td>
+                    <td><meter class="meter" value="{{ top }}" max="150"></meter></td> <!-- Тут в value передал -->
+                </tr>
+                <tr>
+                    <td class="td p-1"><b>Прогноз производста</b></td>
+                    <td class="p-1"><b>{{ top2 }} д</b></td>
+                    <td><meter class="meter" value="150" max="150"></meter></td>
+                </tr>
+                <tr>
+                    <td class="td p-1"><b>Факт производства</b></td>
+                    <td><b>{{ top2 }} д</b></td>
+                    <td><meter class="meter" value="{{ top3 }}" max="100"></meter></td>
+                </tr>
+            </table>
+            <br>
+            <table style="background-color: rgb(4, 49, 100);" class="tab-2">
+                <tr>
+                    <th>№<br>чертёж</th>
+                    <th>НАИМЕНОВАНИЕ</th>
+                    <th>кол-во</th>
+                    <th>масса</th>
+                    <th>общая масса</th>
+                    <th>дата <br>запуска</th>
+                    <th>план<br> отгрузки</th>
+                    <th>прогноз<br> отгрузки</th>
+                    <th>КМ</th>
+                    <th>КМД</th>
+                    <th>ТМЦ</th>
+                    <th>заготовка</th>
+                    <th>сборка</th>
+                    <th>сварка</th>
+                    <th>упаковка</th>
+                </tr>
+                {% for i in objects %}
+                    <tr>
+                        <td>{{ i.order_number }}</td>
+                        <td class="td-1 p-2"><a href="/pin/{{i.id}}">{{ i.name }}</a></td>
+                        <td>{{ i.unit }}</td>
+                        <td>{{ i.weight }}</td>
+                        <td>{{ i.weight_total }}</td>
+                        <td>{{ i.start_data }}</td>
+                        <td>{{ i.end_start }}</td>
+                        <td>{{ i.old }}</td>
+                        <td class="table_td"></td>
+                        <td class="table_td"></td>
+                        <td class="table_td">
+                            {% if i.met3 != '9999' or i.fill3 %}
+                                <div style='width: 50px; background-color: {{ i.color3_ }}; height: 25px; color: black; font-weight: bold;'>
+                                    {{ i.meter.0 }}%
+                                    <div style='width: 100%; height: 25px; margin-top: -24px;'>
+                                    {% for j in i.color3 %}
+                                        <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="table_td">
+                            {% if i.met4 != '9999' or i.fill4 %}
+                                <div style='width: 50px; background-color: {{ i.color4_ }}; height: 25px; color: black; font-weight: bold;'>
+                                    {{ i.meter.1 }}%
+                                    <div style='width: 100%; height: 25px; margin-top: -24px;'>
+                                    {% for j in i.color4 %}
+                                        <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="table_td">
+                            {% if i.met5 != '9999' or i.fill5 %}
+                                <div style='width: 50px; background-color: {{ i.color5_ }}; height: 25px; color: black; font-weight: bold;'>
+                                    {{ i.meter.2 }}%
+                                    <div style='width: 100%; height: 25px; margin-top: -24px;'>
+                                    {% for j in i.color5 %}
+                                        <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="table_td">
+                            {% if i.met6 != '9999' or i.fill6 %}
+                                <div style='width: 50px; background-color: {{ i.color6_ }}; height: 25px; color: black; font-weight: bold;'>
+                                    {{ i.meter.3 }}%
+                                    <div style='width: 100%; height: 25px; margin-top: -24px;'>
+                                    {% for j in i.color6 %}
+                                        <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td class="table_td">
+                            {% if i.met7 != '9999' or i.fill7 %}
+                                <div style='width: 50px; background-color: {{ i.color7_ }}; height: 25px; color: black; font-weight: bold;'>
+                                    {{ i.meter.4 }}%
+                                    <div style='width: 100%; height: 25px; margin-top: -24px;'>
+                                    {% for j in i.color7 %}
+                                        <div style='float: left; width: {{ j.1 }}%; background-color: {{ j.0 }}; height: 25px;'></div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+          </section>
+          {% endblock %}
+          <!-- <ul class="some-nav">
+            <li class="some-nav__item"><a class="some-nav__link" href="/osn.html">ОСН</a></li>
+            <li class="some-nav__item"><a class="some-nav__link" href="/osz.html">ОСЗ</a></li>
+            <li class="some-nav__item"><a class="some-nav__link" href="/pto.html">ПТО</a></li>
+            <li class="some-nav__item"><a class="some-nav__link" href="/depart.html">Ком отдел</a></li>
+          </ul>
+    </div> -->
+

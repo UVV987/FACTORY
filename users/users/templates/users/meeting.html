@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'users/meet.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/41f60ad91d.js" crossorigin="anonymous"></script>
+    <title>Совещание</title>
+</head>
+
+<body>
+
+    <div class="wapper">
+        <div class="container _container" style="color: white;">
+            <div class="block">
+                <h5>ПРЕДСТОЯЩЕЕ СОВЕЩАНИЕ</h5><br>
+                <ul>
+                    <li>дата &ensp;время&ensp; формат &ensp;место&ensp; организатор</li><br>
+                    <li>21.09.2021 10:00 &ensp;<i class="fas fa-phone-square-alt"></i>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Иванов И.И.</li><br>
+                    <li>21.09.2021 13:00 &ensp;<i class="fas fa-video"></i>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Иванов И.И.</li><br>
+                    <li>22.09.2021 10:00 &ensp;<i class="fas fa-users"></i>&ensp;&ensp;<i class="fas fa-map-marker-alt"></i>&ensp;&ensp;&ensp;&ensp;Иванов И.И.</li>
+                </ul>
+            </div>
+            <!-- class="far fa-calendar-alt -->
+            <div class="block-2">
+                <ul class="btn" style="color: white;">
+                    <li><a href="">выберите дату и время проведения совещания</a>&ensp;&ensp;<input type="datetime-local"></li>
+                    <li><a href="">выберите формат проведения совещания</a>&ensp;&ensp;<i class="fas fa-phone-square-alt"></i>&ensp;&ensp;<i class="fas fa-video"></i>&ensp;&ensp;<i class="fas fa-users"></i></li>
+                    <li><a href="">выберите место проведения совещания</a>&ensp;&ensp;<i class="fas fa-map-marker-alt"></i></li>
+                </ul>
+                <div class="wrap">
+                    <ul class="tasks" style="color: white;">
+                        <li class="item"><a href="">Первый <br>ЗГД</a></li>
+                        <li class="item"><a href="">Ком.дир.</a></li>
+                        <li class="item"><a href="">ЗГД <br>развитие</a></li>
+                        <li class="item"><a href="">ЗГД <br>ОТК и ПБ</a></li>
+                    </ul>
+                </div>
+                <div class="wrap">
+                    <ul class="tasks">
+                        <li class="item"><a href="">ПРОИЗВОД<br>СТВО</a></li>
+                        <li class="item"><a href="">ОТК</a></li>
+                        <li class="item"><a href="">ОСН</a></li>
+                    </ul>
+                </div>
+                <div class="wrap">
+                    <ul class="tasks">
+                        <li class="item"><a href="">ОСЗ</a></li>
+                        <li class="item"><a href="">ПТО</a></li>
+                        <li class="item"><a href="">Ком.отдел</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="block">
+                <h5>ТЕКУЩИЙ ВЫБОР</h5>
+                <p>Дата <br> 22.09.2021</p>
+                <p>Время <br> 10:00</p>
+                <p>Формат</p>&ensp;<i class="fas fa-users"></i><br>
+                <p>Место проведения <br> Кабинет ГД</p>
+                <p>Участники: Первый ЗГ <br>Ком.дир<br> ЗГД развитие<br> ЗГД ОТК и ПБ <br>Начальник производства <br>ОТК</p>
+            </div>
+        </div>
+        <button class="button1">АРХИВ СОВЕЩАНИЙ</button>
+        <button class="button">НАЗНАЧИТЬ <br>СОВЕЩАНИЕ</button>
+    </div>
+</body>
+
+</html>
