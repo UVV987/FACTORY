@@ -63,7 +63,6 @@ def get_met(factory):
             buff.append(i.fill7)
             mets.append(buff)
 
-
         for i in range(5):
             buff = []
             buff_2 = []
@@ -78,8 +77,8 @@ def get_met(factory):
 
     return out_mets[0], out_mets[1], out_mets[2], out_mets[3], out_mets[4]
 
-def calculated_bar(dt, start, end, end_, fill=False):
-    if fill:
+def calculated_bar(dt, start, end, end_, end_otk, fill=False):
+    if fill or end_otk:
         bar = 100
     else:
         if start > dt:
@@ -115,11 +114,11 @@ def calculated_bar_2(factory, dt):
     if len(detal) != 0:
         for i in detal:
             buff = []
-            buff.append(calculated_bar(dt, i.start_data3.replace(tzinfo=None), i.end_start3.replace(tzinfo=None), i.end3, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
-            buff.append(calculated_bar(dt, i.start_data4.replace(tzinfo=None), i.end_start4.replace(tzinfo=None), i.end4, i.fill4) if i.otk4[-7:] != 'back 1|' else 0)
-            buff.append(calculated_bar(dt, i.start_data5.replace(tzinfo=None), i.end_start5.replace(tzinfo=None), i.end5, i.fill5) if i.otk5[-7:] != 'back 1|' else 0)
-            buff.append(calculated_bar(dt, i.start_data6.replace(tzinfo=None), i.end_start6.replace(tzinfo=None), i.end6, i.fill6) if i.otk6[-7:] != 'back 1|' else 0)
-            buff.append(calculated_bar(dt, i.start_data7.replace(tzinfo=None), i.end_start7.replace(tzinfo=None), i.end7, i.fill7) if i.otk7[-7:] != 'back 1|' else 0)
+            buff.append(calculated_bar(dt, i.start_data3.replace(tzinfo=None), i.end_start3.replace(tzinfo=None), i.end3, i.end3_otk, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
+            buff.append(calculated_bar(dt, i.start_data4.replace(tzinfo=None), i.end_start4.replace(tzinfo=None), i.end4, i.end4_otk, i.fill4) if i.otk4[-7:] != 'back 1|' else 0)
+            buff.append(calculated_bar(dt, i.start_data5.replace(tzinfo=None), i.end_start5.replace(tzinfo=None), i.end5, i.end5_otk, i.fill5) if i.otk5[-7:] != 'back 1|' else 0)
+            buff.append(calculated_bar(dt, i.start_data6.replace(tzinfo=None), i.end_start6.replace(tzinfo=None), i.end6, i.end6_otk, i.fill6) if i.otk6[-7:] != 'back 1|' else 0)
+            buff.append(calculated_bar(dt, i.start_data7.replace(tzinfo=None), i.end_start7.replace(tzinfo=None), i.end7, i.end7_otk, i.fill7) if i.otk7[-7:] != 'back 1|' else 0)
             buff.append(i.start_data3.strftime('%Y'))
             buff.append(i.start_data4.strftime('%Y'))
             buff.append(i.start_data5.strftime('%Y'))
@@ -147,103 +146,106 @@ def calculated_bar_2(factory, dt):
 
     return out_bars
 
-def give_color(history, start_data, end_data, dt, otk, end):
-    time_from_start = (dt-start_data).total_seconds()/60.0 
-    time_all = (end_data-start_data).total_seconds()/60.0
-    if end != '':
-        time_all = time_all*float(end)
-    time_from_start_otk = time_from_start-time_all
-    time_all_otk = 20
-
-    if time_from_start > time_all:
-        time_from_start = time_all
-
-    if time_from_start_otk > time_all_otk:
-        time_from_start_otk = time_all_otk
-
-    colors = []
-
-    if time_from_start == time_all:
-        otk = otk.split('|')[:-1]
-        for i in range(len(otk)):
-            otk[i] = otk[i].split()
-            otk[i][1] = float(otk[i][1])
-
-        if len(otk) != 0 and otk[-1][0] == 'back':
-            colors.append(['red', 100])
-        elif len(otk) == 0:
-            colors.append(['gray', time_from_start_otk/time_all_otk*100])
-        elif len(otk) == 1:
-            if otk[0][1]*time_all_otk < 5:
-                colors.append(['green', time_from_start_otk/time_all_otk*100])
-            else:
-                colors.append(['gray', (otk[0][1]*time_all_otk)/time_all_otk*100])
-                colors.append(['green', (time_from_start_otk-otk[0][1]*time_all_otk)/time_all_otk*100])
-        else:
-            length = 0
-            if otk[0][1]*time_all_otk > 5:
-                colors.append(['gray', (otk[0][1]*time_all_otk)/time_all_otk*100])
-                length = otk[0][1]*time_all_otk
-            else:
-                colors.append(['green', (otk[0][1]*time_all_otk)/time_all_otk*100])
-                length = otk[0][1]*time_all_otk
-
-            buff = 'green'
-            i = 1
-            while i < len(otk):
-                colors.append([buff, (otk[i][1]*time_all_otk-length)/time_all_otk*100])
-                length = otk[i][1]*time_all_otk
-
-                if buff == 'green':
-                    buff = 'red'
-                else:
-                    buff = 'green'
-
-                i += 1
-
-            colors.append([buff, (time_from_start_otk-length)/time_all_otk*100])
+def give_color(history, start_data, end_data, dt, otk, end, end_otk):
+    if end_otk:
+        return [['green', '100.0']]
     else:
-        history = history.split('|')[:-1]
-        for i in range(len(history)):
-            history[i] = history[i].split()
-            history[i][1] = float(history[i][1])
+        time_from_start = (dt-start_data).total_seconds()/60.0 
+        time_all = (end_data-start_data).total_seconds()/60.0
+        if end != '':
+            time_all = time_all*float(end)
+        time_from_start_otk = time_from_start-time_all
+        time_all_otk = 20
 
-        if len(history) == 0:
-            colors.append(['gray', time_from_start/time_all*100])
-        elif len(history) == 1:
-            if history[0][1]*time_all < 5:
-                colors.append(['green', time_from_start/time_all*100])
-            else:
-                colors.append(['gray', (history[0][1]*time_all)/time_all*100])
-                colors.append(['green', (time_from_start-history[0][1]*time_all)/time_all*100])
-        else:
-            length = 0
-            if history[0][1]*time_all > 5:
-                colors.append(['gray', (history[0][1]*time_all)/time_all*100])
-                length = history[0][1]*time_all
-            else:
-                colors.append(['green', (history[0][1]*time_all)/time_all*100])
-                length = history[0][1]*time_all
+        if time_from_start > time_all:
+            time_from_start = time_all
 
-            buff = 'green'
-            i = 1
-            while i < len(history):
-                colors.append([buff, (history[i][1]*time_all-length)/time_all*100])
-                length = history[i][1]*time_all
+        if time_from_start_otk > time_all_otk:
+            time_from_start_otk = time_all_otk
 
-                if buff == 'green':
-                    buff = 'red'
+        colors = []
+
+        if time_from_start == time_all:
+            otk = otk.split('|')[:-1]
+            for i in range(len(otk)):
+                otk[i] = otk[i].split()
+                otk[i][1] = float(otk[i][1])
+
+            if len(otk) != 0 and otk[-1][0] == 'back':
+                colors.append(['red', 100])
+            elif len(otk) == 0:
+                colors.append(['gray', time_from_start_otk/time_all_otk*100])
+            elif len(otk) == 1:
+                if otk[0][1]*time_all_otk < 5:
+                    colors.append(['green', time_from_start_otk/time_all_otk*100])
                 else:
-                    buff = 'green'
+                    colors.append(['gray', (otk[0][1]*time_all_otk)/time_all_otk*100])
+                    colors.append(['green', (time_from_start_otk-otk[0][1]*time_all_otk)/time_all_otk*100])
+            else:
+                length = 0
+                if otk[0][1]*time_all_otk > 5:
+                    colors.append(['gray', (otk[0][1]*time_all_otk)/time_all_otk*100])
+                    length = otk[0][1]*time_all_otk
+                else:
+                    colors.append(['green', (otk[0][1]*time_all_otk)/time_all_otk*100])
+                    length = otk[0][1]*time_all_otk
 
-                i += 1
+                buff = 'green'
+                i = 1
+                while i < len(otk):
+                    colors.append([buff, (otk[i][1]*time_all_otk-length)/time_all_otk*100])
+                    length = otk[i][1]*time_all_otk
 
-            colors.append([buff, (time_from_start-length)/time_all*100])
+                    if buff == 'green':
+                        buff = 'red'
+                    else:
+                        buff = 'green'
 
-    for i in range(len(colors)):
-        colors[i][1] = str(colors[i][1])
+                    i += 1
 
-    return colors
+                colors.append([buff, (time_from_start_otk-length)/time_all_otk*100])
+        else:
+            history = history.split('|')[:-1]
+            for i in range(len(history)):
+                history[i] = history[i].split()
+                history[i][1] = float(history[i][1])
+
+            if len(history) == 0:
+                colors.append(['gray', time_from_start/time_all*100])
+            elif len(history) == 1:
+                if history[0][1]*time_all < 5:
+                    colors.append(['green', time_from_start/time_all*100])
+                else:
+                    colors.append(['gray', (history[0][1]*time_all)/time_all*100])
+                    colors.append(['green', (time_from_start-history[0][1]*time_all)/time_all*100])
+            else:
+                length = 0
+                if history[0][1]*time_all > 5:
+                    colors.append(['gray', (history[0][1]*time_all)/time_all*100])
+                    length = history[0][1]*time_all
+                else:
+                    colors.append(['green', (history[0][1]*time_all)/time_all*100])
+                    length = history[0][1]*time_all
+
+                buff = 'green'
+                i = 1
+                while i < len(history):
+                    colors.append([buff, (history[i][1]*time_all-length)/time_all*100])
+                    length = history[i][1]*time_all
+
+                    if buff == 'green':
+                        buff = 'red'
+                    else:
+                        buff = 'green'
+
+                    i += 1
+
+                colors.append([buff, (time_from_start-length)/time_all*100])
+
+        for i in range(len(colors)):
+            colors[i][1] = str(colors[i][1])
+
+        return colors
 
 def give_color_2(factory, dt):
     out_colors = [[], [], [], [], []]
@@ -253,11 +255,11 @@ def give_color_2(factory, dt):
     if len(detal) != 0:
         for i in detal:
             buff = []
-            buff.append([['green', '100.0']] if i.fill3 else give_color(i.history3, i.start_data3.replace(tzinfo=None), i.end_start3.replace(tzinfo=None), dt, i.otk3, i.end3))
-            buff.append([['green', '100.0']] if i.fill4 else give_color(i.history4, i.start_data4.replace(tzinfo=None), i.end_start4.replace(tzinfo=None), dt, i.otk4, i.end4))
-            buff.append([['green', '100.0']] if i.fill5 else give_color(i.history5, i.start_data5.replace(tzinfo=None), i.end_start5.replace(tzinfo=None), dt, i.otk5, i.end5))
-            buff.append([['green', '100.0']] if i.fill6 else give_color(i.history6, i.start_data6.replace(tzinfo=None), i.end_start6.replace(tzinfo=None), dt, i.otk6, i.end6))
-            buff.append([['green', '100.0']] if i.fill7 else give_color(i.history7, i.start_data7.replace(tzinfo=None), i.end_start7.replace(tzinfo=None), dt, i.otk7, i.end7))
+            buff.append([['green', '100.0']] if i.fill3 else give_color(i.history3, i.start_data3.replace(tzinfo=None), i.end_start3.replace(tzinfo=None), dt, i.otk3, i.end3, i.end3_otk))
+            buff.append([['green', '100.0']] if i.fill4 else give_color(i.history4, i.start_data4.replace(tzinfo=None), i.end_start4.replace(tzinfo=None), dt, i.otk4, i.end4, i.end4_otk))
+            buff.append([['green', '100.0']] if i.fill5 else give_color(i.history5, i.start_data5.replace(tzinfo=None), i.end_start5.replace(tzinfo=None), dt, i.otk5, i.end5, i.end5_otk))
+            buff.append([['green', '100.0']] if i.fill6 else give_color(i.history6, i.start_data6.replace(tzinfo=None), i.end_start6.replace(tzinfo=None), dt, i.otk6, i.end6, i.end6_otk))
+            buff.append([['green', '100.0']] if i.fill7 else give_color(i.history7, i.start_data7.replace(tzinfo=None), i.end_start7.replace(tzinfo=None), dt, i.otk7, i.end7, i.end7_otk))
             colors.append(buff)
 
         for i in range(len(colors)):
@@ -405,8 +407,8 @@ def operator(request):
         i.start_data2 = i.start_data2.replace(tzinfo=None)
         i.end_start2 = i.end_start2.replace(tzinfo=None)
         # КОНТРОЛЬ ПРИЁМА ЗАКАЗА ЦВЕТАМИ
-        object['color1'] = [['green', 100]] if i.fill1 else give_color(i.history1, i.start_data1, i.end_start1, dt, i.otk1, i.end1)
-        object['color2'] = [['green', 100]] if i.fill2 else give_color(i.history2, i.start_data2, i.end_start2, dt, i.otk2, i.end2)
+        object['color1'] = [['green', 100]] if i.fill1 else give_color(i.history1, i.start_data1, i.end_start1, dt, i.otk1, i.end1, i.end1_otk)
+        object['color2'] = [['green', 100]] if i.fill2 else give_color(i.history2, i.start_data2, i.end_start2, dt, i.otk2, i.end2, i.end2_otk)
         object['color3'], object['color4'], object['color5'], object['color6'], object['color7'] = give_color_2(i, dt)
 
         object['color1_'] = give_bg_color(i.start_data1, i.end_start1, dt, i.end1)
@@ -414,8 +416,8 @@ def operator(request):
         object['color3_'], object['color4_'], object['color5_'], object['color6_'], object['color7_'] = give_bg_color_2(i, dt)
 
         object['meter'] = []
-        object['meter'].append(calculated_bar(dt, i.start_data1, i.end_start1, i.end1, i.fill1) if i.otk1[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data2, i.end_start2, i.end2, i.fill2) if i.otk2[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data1, i.end_start1, i.end1, i.end1_otk, i.fill1) if i.otk1[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data2, i.end_start2, i.end2, i.end2_otk, i.fill2) if i.otk2[-7:] != 'back 1|' else 0)
         object['meter'] += calculated_bar_2(i, dt)
 
         for i in range(len(object['meter'])):
@@ -541,11 +543,11 @@ def detal(request, id):
         i.end_start7 = i.end_start7.replace(tzinfo=None)
 
         # КОНТРОЛЬ ПРИЁМА ЗАКАЗА ЦВЕТАМИ
-        object['color3'] = [['green', 100]] if i.fill3 else give_color(i.history3, i.start_data3, i.end_start3, dt, i.otk3, i.end3)
-        object['color4'] = [['green', 100]] if i.fill4 else give_color(i.history4, i.start_data4, i.end_start4, dt, i.otk4, i.end4)
-        object['color5'] = [['green', 100]] if i.fill5 else give_color(i.history5, i.start_data5, i.end_start5, dt, i.otk5, i.end5)
-        object['color6'] = [['green', 100]] if i.fill6 else give_color(i.history6, i.start_data6, i.end_start6, dt, i.otk6, i.end6)
-        object['color7'] = [['green', 100]] if i.fill7 else give_color(i.history7, i.start_data7, i.end_start7, dt, i.otk7, i.end7)
+        object['color3'] = [['green', 100]] if i.fill3 else give_color(i.history3, i.start_data3, i.end_start3, dt, i.otk3, i.end3, i.end3_otk)
+        object['color4'] = [['green', 100]] if i.fill4 else give_color(i.history4, i.start_data4, i.end_start4, dt, i.otk4, i.end4, i.end4_otk)
+        object['color5'] = [['green', 100]] if i.fill5 else give_color(i.history5, i.start_data5, i.end_start5, dt, i.otk5, i.end5, i.end5_otk)
+        object['color6'] = [['green', 100]] if i.fill6 else give_color(i.history6, i.start_data6, i.end_start6, dt, i.otk6, i.end6, i.end6_otk)
+        object['color7'] = [['green', 100]] if i.fill7 else give_color(i.history7, i.start_data7, i.end_start7, dt, i.otk7, i.end7, i.end7_otk)
         object['color3_'] = give_bg_color(i.start_data3, i.end_start3, dt, i.end3)
         object['color4_'] = give_bg_color(i.start_data4, i.end_start4, dt, i.end4)
         object['color5_'] = give_bg_color(i.start_data5, i.end_start5, dt, i.end5)
@@ -553,11 +555,11 @@ def detal(request, id):
         object['color7_'] = give_bg_color(i.start_data7, i.end_start7, dt, i.end7)
 
         object['meter'] = []
-        object['meter'].append(calculated_bar(dt, i.start_data3, i.end_start3, i.end3, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data4, i.end_start4, i.end4, i.fill4) if i.otk4[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data5, i.end_start5, i.end5, i.fill5) if i.otk5[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data6, i.end_start6, i.end6, i.fill6) if i.otk6[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data7, i.end_start7, i.end7, i.fill7) if i.otk7[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data3, i.end_start3, i.end3, i.end3_otk, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data4, i.end_start4, i.end4, i.end4_otk, i.fill4) if i.otk4[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data5, i.end_start5, i.end5, i.end5_otk, i.fill5) if i.otk5[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data6, i.end_start6, i.end6, i.end6_otk, i.fill6) if i.otk6[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data7, i.end_start7, i.end7, i.end7_otk, i.fill7) if i.otk7[-7:] != 'back 1|' else 0)
 
         for i in range(len(object['meter'])):
             object['meter'][i] = round(object['meter'][i]) # PROGRESSBAR
@@ -612,8 +614,8 @@ def about(request):
         i.start_data2 = i.start_data2.replace(tzinfo=None)
         i.end_start2 = i.end_start2.replace(tzinfo=None)
         # КОНТРОЛЬ ПРИЁМА ЗАКАЗА ЦВЕТАМИ
-        object['color1'] = [['green', 100]] if i.fill1 else give_color(i.history1, i.start_data1, i.end_start1, dt, i.otk1, i.end1)
-        object['color2'] = [['green', 100]] if i.fill2 else give_color(i.history2, i.start_data2, i.end_start2, dt, i.otk2, i.end2)
+        object['color1'] = [['green', 100]] if i.fill1 else give_color(i.history1, i.start_data1, i.end_start1, dt, i.otk1, i.end1, i.end1_otk)
+        object['color2'] = [['green', 100]] if i.fill2 else give_color(i.history2, i.start_data2, i.end_start2, dt, i.otk2, i.end2, i.end2_otk)
         object['color3'], object['color4'], object['color5'], object['color6'], object['color7'] = give_color_2(i, dt)
 
         object['color1_'] = give_bg_color(i.start_data1, i.end_start1, dt, i.end1)
@@ -621,8 +623,8 @@ def about(request):
         object['color3_'], object['color4_'], object['color5_'], object['color6_'], object['color7_'] = give_bg_color_2(i, dt)
 
         object['meter'] = []
-        object['meter'].append(calculated_bar(dt, i.start_data1, i.end_start1, i.end1, i.fill1) if i.otk1[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data2, i.end_start2, i.end2, i.fill2) if i.otk2[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data1, i.end_start1, i.end1, i.end1_otk, i.fill1) if i.otk1[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data2, i.end_start2, i.end2, i.end2_otk, i.fill2) if i.otk2[-7:] != 'back 1|' else 0)
         object['meter'] += calculated_bar_2(i, dt)
 
         for i in range(len(object['meter'])):
@@ -706,11 +708,11 @@ def abouttoo(request, id):
         i.end_start7 = i.end_start7.replace(tzinfo=None)
 
         # КОНТРОЛЬ ПРИЁМА ЗАКАЗА ЦВЕТАМИ
-        object['color3'] = [['green', 100]] if i.fill3 else give_color(i.history3, i.start_data3, i.end_start3, dt, i.otk3, i.end3)
-        object['color4'] = [['green', 100]] if i.fill4 else give_color(i.history4, i.start_data4, i.end_start4, dt, i.otk4, i.end4)
-        object['color5'] = [['green', 100]] if i.fill5 else give_color(i.history5, i.start_data5, i.end_start5, dt, i.otk5, i.end5)
-        object['color6'] = [['green', 100]] if i.fill6 else give_color(i.history6, i.start_data6, i.end_start6, dt, i.otk6, i.end6)
-        object['color7'] = [['green', 100]] if i.fill7 else give_color(i.history7, i.start_data7, i.end_start7, dt, i.otk7, i.end7)
+        object['color3'] = [['green', 100]] if i.fill3 else give_color(i.history3, i.start_data3, i.end_start3, dt, i.otk3, i.end3, i.end3_otk)
+        object['color4'] = [['green', 100]] if i.fill4 else give_color(i.history4, i.start_data4, i.end_start4, dt, i.otk4, i.end4, i.end4_otk)
+        object['color5'] = [['green', 100]] if i.fill5 else give_color(i.history5, i.start_data5, i.end_start5, dt, i.otk5, i.end5, i.end5_otk)
+        object['color6'] = [['green', 100]] if i.fill6 else give_color(i.history6, i.start_data6, i.end_start6, dt, i.otk6, i.end6, i.end6_otk)
+        object['color7'] = [['green', 100]] if i.fill7 else give_color(i.history7, i.start_data7, i.end_start7, dt, i.otk7, i.end7, i.end7_otk)
         object['color3_'] = give_bg_color(i.start_data3, i.end_start3, dt, i.end3)
         object['color4_'] = give_bg_color(i.start_data4, i.end_start4, dt, i.end4)
         object['color5_'] = give_bg_color(i.start_data5, i.end_start5, dt, i.end5)
@@ -718,11 +720,11 @@ def abouttoo(request, id):
         object['color7_'] = give_bg_color(i.start_data7, i.end_start7, dt, i.end7)
 
         object['meter'] = []
-        object['meter'].append(calculated_bar(dt, i.start_data3, i.end_start3, i.end3, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data4, i.end_start4, i.end4, i.fill4) if i.otk4[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data5, i.end_start5, i.end5, i.fill5) if i.otk5[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data6, i.end_start6, i.end6, i.fill6) if i.otk6[-7:] != 'back 1|' else 0)
-        object['meter'].append(calculated_bar(dt, i.start_data7, i.end_start7, i.end7, i.fill7) if i.otk7[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data3, i.end_start3, i.end3, i.end3_otk, i.fill3) if i.otk3[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data4, i.end_start4, i.end4, i.end4_otk, i.fill4) if i.otk4[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data5, i.end_start5, i.end5, i.end5_otk, i.fill5) if i.otk5[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data6, i.end_start6, i.end6, i.end6_otk, i.fill6) if i.otk6[-7:] != 'back 1|' else 0)
+        object['meter'].append(calculated_bar(dt, i.start_data7, i.end_start7, i.end7, i.end7_otk, i.fill7) if i.otk7[-7:] != 'back 1|' else 0)
 
         for i in range(len(object['meter'])):
             object['meter'][i] = round(object['meter'][i]) # PROGRESSBAR
@@ -809,13 +811,13 @@ def pin(request, id):
     old = finish(old, detail.end_start7)
 
     object['meter'] = []
-    object['meter'].append(calculated_bar(dt, detail.start_data1.replace(tzinfo=None), detail.end_start1.replace(tzinfo=None), i.end1))
-    object['meter'].append(calculated_bar(dt, detail.start_data2.replace(tzinfo=None), detail.end_start2.replace(tzinfo=None), i.end2))
-    object['meter'].append(calculated_bar(dt, detail.start_data3.replace(tzinfo=None), detail.end_start3.replace(tzinfo=None), i.end3))
-    object['meter'].append(calculated_bar(dt, detail.start_data4.replace(tzinfo=None), detail.end_start4.replace(tzinfo=None), i.end4))
-    object['meter'].append(calculated_bar(dt, detail.start_data5.replace(tzinfo=None), detail.end_start5.replace(tzinfo=None), i.end5))
-    object['meter'].append(calculated_bar(dt, detail.start_data6.replace(tzinfo=None), detail.end_start6.replace(tzinfo=None), i.end6))
-    object['meter'].append(calculated_bar(dt, detail.start_data7.replace(tzinfo=None), detail.end_start7.replace(tzinfo=None), i.end7))
+    object['meter'].append(calculated_bar(dt, detail.start_data1.replace(tzinfo=None), detail.end_start1.replace(tzinfo=None), i.end1, i.end1_otk))
+    object['meter'].append(calculated_bar(dt, detail.start_data2.replace(tzinfo=None), detail.end_start2.replace(tzinfo=None), i.end2, i.end2_otk))
+    object['meter'].append(calculated_bar(dt, detail.start_data3.replace(tzinfo=None), detail.end_start3.replace(tzinfo=None), i.end3, i.end3_otk))
+    object['meter'].append(calculated_bar(dt, detail.start_data4.replace(tzinfo=None), detail.end_start4.replace(tzinfo=None), i.end4, i.end4_otk))
+    object['meter'].append(calculated_bar(dt, detail.start_data5.replace(tzinfo=None), detail.end_start5.replace(tzinfo=None), i.end5, i.end5_otk))
+    object['meter'].append(calculated_bar(dt, detail.start_data6.replace(tzinfo=None), detail.end_start6.replace(tzinfo=None), i.end6, i.end6_otk))
+    object['meter'].append(calculated_bar(dt, detail.start_data7.replace(tzinfo=None), detail.end_start7.replace(tzinfo=None), i.end7, i.end7_otk))
 
     for i in range(len(object['meter'])):
         object['meter'][i] = round(object['meter'][i]) # PROGRESSBAR

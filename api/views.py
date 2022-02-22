@@ -40,7 +40,7 @@ def notice(request, department):
         i.save()
     return HttpResponse(out)
 
-def qr_start(request, department):
+def start(request, department):
     if request.method == 'POST':
         model = get_model(department, request.POST.get('id'))
         dt = datetime.datetime.now()
@@ -114,25 +114,53 @@ def stop(request, department):
 
     return HttpResponse('')
 
-def qr_start_otk(request, department):
+def start_otk(request, department):
     if request.method == 'POST':
         model = get_model(department, request.POST.get('id'))
         dt = datetime.datetime.now()
 
         if department == 'km':
-            model.otk1 = f'start {(dt-model.end_start1.replace(tzinfo=None)).total_seconds()/(model.end_start1.replace(tzinfo=None)-model.start_data1.replace(tzinfo=None)).total_seconds()}|'
+            if model.end1 != '':
+                coeff = float(model.end1)
+            else:
+                coeff = 1
+            model.otk1 = f'start {(dt-model.end_start1.replace(tzinfo=None)).total_seconds()/((model.end_start1.replace(tzinfo=None)-model.start_data1.replace(tzinfo=None)).total_seconds()*coeff)}|'
         elif department == 'kmd':
-            model.otk2 = f'start {(dt-model.end_start2.replace(tzinfo=None)).total_seconds()/(model.end_start2.replace(tzinfo=None)-model.start_data2.replace(tzinfo=None)).total_seconds()}|'
+            if model.end2 != '':
+                coeff = float(model.end2)
+            else:
+                coeff = 1
+            model.otk2 = f'start {(dt-model.end_start2.replace(tzinfo=None)).total_seconds()/((model.end_start2.replace(tzinfo=None)-model.start_data2.replace(tzinfo=None)).total_seconds()*coeff)}|'
         elif department == 'tmc':
-            model.otk3 = f'start {(dt-model.end_start3.replace(tzinfo=None)).total_seconds()/(model.end_start3.replace(tzinfo=None)-model.start_data3.replace(tzinfo=None)).total_seconds()}|'
+            if model.end3 != '':
+                coeff = float(model.end3)
+            else:
+                coeff = 1
+            model.otk3 = f'start {(dt-model.end_start3.replace(tzinfo=None)).total_seconds()/((model.end_start3.replace(tzinfo=None)-model.start_data3.replace(tzinfo=None)).total_seconds()*coeff)}|'
         elif department == 'zagatovka':
-            model.otk4 = f'start {(dt-model.end_start4.replace(tzinfo=None)).total_seconds()/(model.end_start4.replace(tzinfo=None)-model.start_data4.replace(tzinfo=None)).total_seconds()}|'
+            if model.end4 != '':
+                coeff = float(model.end4)
+            else:
+                coeff = 1
+            model.otk4 = f'start {(dt-model.end_start4.replace(tzinfo=None)).total_seconds()/((model.end_start4.replace(tzinfo=None)-model.start_data4.replace(tzinfo=None)).total_seconds()*coeff)}|'
         elif department == 'sborka':
-            model.otk5 = f'start {(dt-model.end_start5.replace(tzinfo=None)).total_seconds()/(model.end_start5.replace(tzinfo=None)-model.start_data5.replace(tzinfo=None)).total_seconds()}|'
+            if model.end5 != '':
+                coeff = float(model.end5)
+            else:
+                coeff = 1
+            model.otk5 = f'start {(dt-model.end_start5.replace(tzinfo=None)).total_seconds()/((model.end_start5.replace(tzinfo=None)-model.start_data5.replace(tzinfo=None)).total_seconds()*coeff)}|'
         elif department == 'svarka':
-            model.otk6 = f'start {(dt-model.end_start6.replace(tzinfo=None)).total_seconds()/(model.end_start6.replace(tzinfo=None)-model.start_data6.replace(tzinfo=None)).total_seconds()}|'
+            if model.end6 != '':
+                coeff = float(model.end6)
+            else:
+                coeff = 1
+            model.otk6 = f'start {(dt-model.end_start6.replace(tzinfo=None)).total_seconds()/((model.end_start6.replace(tzinfo=None)-model.start_data6.replace(tzinfo=None)).total_seconds()*coeff)}|'
         elif department == 'upakovka':
-            model.otk7 = f'start {(dt-model.end_start7.replace(tzinfo=None)).total_seconds()/(model.end_start7.replace(tzinfo=None)-model.start_data7.replace(tzinfo=None)).total_seconds()}|'
+            if model.end7 != '':
+                coeff = float(model.end7)
+            else:
+                coeff = 1
+            model.otk7 = f'start {(dt-model.end_start7.replace(tzinfo=None)).total_seconds()/((model.end_start7.replace(tzinfo=None)-model.start_data7.replace(tzinfo=None)).total_seconds()*coeff)}|'
         model.save()
 
     return HttpResponse('')
@@ -143,43 +171,71 @@ def stop_otk(request, department):
         dt = datetime.datetime.now()
 
         if department == 'km':
-            moment = (dt-model.end_start1.replace(tzinfo=None)).total_seconds()/(model.end_start1.replace(tzinfo=None)-model.start_data1.replace(tzinfo=None)).total_seconds()
+            if model.end1 != '':
+                coeff = float(model.end1)
+            else:
+                coeff = 1
+            moment = (dt-model.end_start1.replace(tzinfo=None)).total_seconds()/((model.end_start1.replace(tzinfo=None)-model.start_data1.replace(tzinfo=None)).total_seconds()*coeff)
             if len(model.otk1.split('|')) != 1 and len(model.otk1.split('|')) % 2 != 0:
                 model.otk1 += f'break {moment}|'
             else:
                 model.otk1 += f'stop {moment}|'
         elif department == 'kmd':
-            moment = (dt-model.end_start2.replace(tzinfo=None)).total_seconds()/(model.end_start2.replace(tzinfo=None)-model.start_data2.replace(tzinfo=None)).total_seconds()
+            if model.end2 != '':
+                coeff = float(model.end2)
+            else:
+                coeff = 1
+            moment = (dt-model.end_start2.replace(tzinfo=None)).total_seconds()/((model.end_start2.replace(tzinfo=None)-model.start_data2.replace(tzinfo=None)).total_seconds()*coeff)
             if len(model.otk2.split('|')) != 1 and len(model.otk2.split('|')) % 2 != 0:
                 model.otk2 += f'break {moment}|'
             else:
                 model.otk2 += f'stop {moment}|'
         elif department == 'tmc':
-            moment = (dt-model.end_start3.replace(tzinfo=None)).total_seconds()/(model.end_start3.replace(tzinfo=None)-model.start_data3.replace(tzinfo=None)).total_seconds()
+            if model.end3 != '':
+                coeff = float(model.end3)
+            else:
+                coeff = 1
+            moment = (dt-model.end_start3.replace(tzinfo=None)).total_seconds()/((model.end_start3.replace(tzinfo=None)-model.start_data3.replace(tzinfo=None)).total_seconds()*coeff)
             if len(model.otk3.split('|')) != 1 and len(model.otk3.split('|')) % 2 != 0:
                 model.otk3 += f'break {moment}|'
             else:
                 model.otk3 += f'stop {moment}|'
         elif department == 'zagatovka':
-            moment = (dt-model.end_start4.replace(tzinfo=None)).total_seconds()/(model.end_start4.replace(tzinfo=None)-model.start_data4.replace(tzinfo=None)).total_seconds()
+            if model.end4 != '':
+                coeff = float(model.end4)
+            else:
+                coeff = 1
+            moment = (dt-model.end_start4.replace(tzinfo=None)).total_seconds()/((model.end_start4.replace(tzinfo=None)-model.start_data4.replace(tzinfo=None)).total_seconds()*coeff)
             if len(model.otk4.split('|')) != 1 and len(model.otk4.split('|')) % 2 != 0:
                 model.otk4 += f'break {moment}|'
             else:
                 model.otk4 += f'stop {moment}|'
         elif department == 'sborka':
-            moment = (dt-model.end_start5.replace(tzinfo=None)).total_seconds()/(model.end_start5.replace(tzinfo=None)-model.start_data5.replace(tzinfo=None)).total_seconds()
+            if model.end5 != '':
+                coeff = float(model.end5)
+            else:
+                coeff = 1
+            moment = (dt-model.end_start5.replace(tzinfo=None)).total_seconds()/((model.end_start5.replace(tzinfo=None)-model.start_data5.replace(tzinfo=None)).total_seconds()*coeff)
             if len(model.otk5.split('|')) != 1 and len(model.otk5.split('|')) % 2 != 0:
                 model.otk5 += f'break {moment}|'
             else:
                 model.otk5 += f'stop {moment}|'
         elif department == 'svarka':
-            moment = (dt-model.end_start6.replace(tzinfo=None)).total_seconds()/(model.end_start6.replace(tzinfo=None)-model.start_data6.replace(tzinfo=None)).total_seconds()
+            if model.end6 != '':
+                coeff = float(model.end6)
+            else:
+                coeff = 1
+            moment = (dt-model.end_start6.replace(tzinfo=None)).total_seconds()/((model.end_start6.replace(tzinfo=None)-model.start_data6.replace(tzinfo=None)).total_seconds()*coeff)
             if len(model.otk6.split('|')) != 1 and len(model.otk6.split('|')) % 2 != 0:
                 model.otk6 += f'break {moment}|'
             else:
                 model.otk6 += f'stop {moment}|'
         elif department == 'upakovka':
-            moment = (dt-model.end_start7.replace(tzinfo=None)).total_seconds()/(model.end_start7.replace(tzinfo=None)-model.start_data7.replace(tzinfo=None)).total_seconds()
+            if model.end7 != '':
+                coeff = float(model.end7)
+            else:
+                coeff = 1
+            moment = (dt-model.end_start7.replace(tzinfo=None)).total_seconds()/((model.end_start7.replace(tzinfo=None)-model.start_data7.replace(tzinfo=None)).total_seconds()*coeff)
             if len(model.otk7.split('|')) != 1 and len(model.otk7.split('|')) % 2 != 0:
                 model.otk7 += f'break {moment}|'
             else:
@@ -230,6 +286,29 @@ def end(request, department):
             model.end6 += f'{(-(dt-model.end_start6.replace(tzinfo=None)).total_seconds()/(model.end_start6.replace(tzinfo=None)-model.start_data6.replace(tzinfo=None)).total_seconds())/100}'
         elif department == 'upakovka':
             model.end7 += f'{(-(dt-model.end_start7.replace(tzinfo=None)).total_seconds()/(model.end_start7.replace(tzinfo=None)-model.start_data7.replace(tzinfo=None)).total_seconds())/100}'
+
+        model.save()
+
+    return HttpResponse('')
+
+def end_otk(request, department):
+    if request.method == 'POST':
+        model = get_model(department, request.POST.get('id'))
+
+        if department == 'km':
+            model.end1_otk = True
+        elif department == 'kmd':
+            model.end2_otk = True
+        elif department == 'tmc':
+            model.end3_otk = True
+        elif department == 'zagatovka':
+            model.end4_otk = True
+        elif department == 'sborka':
+            model.end5_otk = True
+        elif department == 'svarka':
+            model.end6_otk = True
+        elif department == 'upakovka':
+            model.end7_otk = True
 
         model.save()
 
