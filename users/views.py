@@ -734,13 +734,23 @@ def abouttoo(request, id):
     start = start.replace(tzinfo=None)
     old = old.replace(tzinfo=None)
     top2 = (old-start).days # ПРОГНОЗ ПРОИЗВОДСТВА В ДНЯХ
-    try:
-        top = (top1/top2)*150
-    except:
-        top = 100
+    if top2 > top1:
+        try:
+            top = int((top1/top2)*100)
+            top_ = 100
+        except:
+            top_ = 100
+            top = 100
+    else:
+        try:
+            top_ = int((top2/top1)*100)
+            top = 100
+        except:
+            top_ = 100
+            top = 100
     top3 = 100 - ((old-dt).total_seconds()/(old-start).total_seconds())*100 # ФАКТ ПРОИЗВОДСТВА
 
-    return render(request, 'users/abouttoo.html', {'objects': objects, 'id': id, 'top': top, 'top1': top1, 'top2': top2, 'top3': top3})
+    return render(request, 'users/abouttoo.html', {'objects': objects, 'id': id, 'top': top, 'top1': top1, 'top2': top2, 'top3': top3, 'top_': top_})
 
 
 def pin(request, id):
